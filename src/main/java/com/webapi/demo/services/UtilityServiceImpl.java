@@ -6,16 +6,15 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.List;
 
 @Service
 public class UtilityServiceImpl implements UtilityService {
 
-    // sorts people by age, young -> old
-    public List<People> sortPeopleByAge(List<People> unsortedPeople) {
+    // sorts people by age, old -> young
+    public ArrayList<People> sortPeopleByAge(ArrayList<People> unsortedPeople) {
         var sortedPeople = new ArrayList<>(unsortedPeople);
 
-        sortedPeople.sort(Comparator.comparingInt(People::getAge));
+        sortedPeople.sort(Comparator.comparingInt(People::getAge).reversed());
 
         return sortedPeople;
     }

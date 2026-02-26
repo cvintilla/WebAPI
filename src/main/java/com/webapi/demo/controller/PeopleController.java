@@ -2,6 +2,7 @@ package com.webapi.demo.controller;
 
 import com.webapi.demo.models.People;
 import com.webapi.demo.services.PeopleServiceImpl;
+import com.webapi.demo.services.interfaces.PeopleService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,23 +12,21 @@ import java.util.List;
 @RequestMapping("/api/people")
 public class PeopleController {
 
-    private final PeopleServiceImpl peopleServiceImpl;
+    private final PeopleService peopleService;
 
-    public PeopleController(PeopleServiceImpl peopleServiceImpl) {
-        this.peopleServiceImpl = peopleServiceImpl;
+    public PeopleController(PeopleService peopleService) {
+        this.peopleService = peopleService;
     }
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping
     public List<People> getPeople() {
-
-        return this.peopleServiceImpl.getPeople();
+        return peopleService.getPeople();
     }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public String createPeople() {
-
         return "test";
     }
 }
