@@ -1,4 +1,4 @@
-# Keeping up to date with Java using Spring boot
+# Java (Spring Boot) Web API
 
 Swagger:
 
