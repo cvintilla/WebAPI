@@ -1,9 +1,29 @@
 package com.webapi.demo.models;
 
-public class People {
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "person")
+public class Person {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String firstName;
     private String lastName;
     private int age;
+
+    public Person() {}
+
+    public Person(String firstName, String lastName, int age) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age = age;
+    }
+
+    public Long getId() {
+        return id;
+    }
 
     public String getFirstName() {
         return this.firstName;

@@ -1,9 +1,9 @@
 package com.webapi.demo.controller;
 
-import com.webapi.demo.models.People;
-import com.webapi.demo.services.PeopleServiceImpl;
-import com.webapi.demo.services.interfaces.PeopleService;
+import com.webapi.demo.models.Person;
+import com.webapi.demo.services.interfaces.PersonService;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,21 +12,39 @@ import java.util.List;
 @RequestMapping("/api/people")
 public class PeopleController {
 
-    private final PeopleService peopleService;
+    private final PersonService personService;
 
-    public PeopleController(PeopleService peopleService) {
-        this.peopleService = peopleService;
+    public PeopleController(PersonService personService) {
+        this.personService = personService;
     }
 
-    @ResponseStatus(HttpStatus.OK)
     @GetMapping
-    public List<People> getPeople() {
-        return peopleService.getPeople();
+    @ResponseStatus(HttpStatus.OK)
+    public List<Person> getPeople() {
+        return personService.getPeople();
     }
 
-    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public String createPeople() {
-        return "test";
+    @ResponseStatus(HttpStatus.CREATED)
+    public Person createPerson(@RequestBody Person person) {
+        return personService.create(person);
+    }
+
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public Person updatePerson(@PathVariable Long id, @RequestBody Person updated) {
+        return personService.update(id, updated);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deletePerson(@PathVariable Long id) {
+        boolean deleted = personService.deleteById(id);
+
+        if (!deleted) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Person not found");
+        }
+
+        return ResponseEntity.ok("Deleted");
     }
 }

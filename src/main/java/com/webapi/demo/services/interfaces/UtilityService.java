@@ -1,9 +1,10 @@
 package com.webapi.demo.services.interfaces;
 
-import com.webapi.demo.models.People;
+import com.webapi.demo.models.Person;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public interface UtilityService {
-    public ArrayList<People> sortPeopleByAge(ArrayList<People> unsortedPeople);
+    public ArrayList<Person> sortPeopleByAge(List<Person> unsortedPeople);
 }
