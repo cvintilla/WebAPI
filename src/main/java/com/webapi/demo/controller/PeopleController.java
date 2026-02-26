@@ -1,6 +1,7 @@
 package com.webapi.demo.controller;
 
 import com.webapi.demo.models.Person;
+import com.webapi.demo.models.PersonRequest;
 import com.webapi.demo.services.interfaces.PersonService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,13 +27,13 @@ public class PeopleController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Person createPerson(@RequestBody Person person) {
+    public Person createPerson(@RequestBody PersonRequest person) {
         return personService.create(person);
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public Person updatePerson(@PathVariable Long id, @RequestBody Person updated) {
+    public Person updatePerson(@PathVariable Long id, @RequestBody PersonRequest updated) {
         return personService.update(id, updated);
     }
 
@@ -44,7 +45,6 @@ public class PeopleController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("Person not found");
         }
-
         return ResponseEntity.ok("Deleted");
     }
 }

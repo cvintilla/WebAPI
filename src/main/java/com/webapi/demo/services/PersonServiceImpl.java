@@ -1,6 +1,7 @@
 package com.webapi.demo.services;
 
 import com.webapi.demo.models.Person;
+import com.webapi.demo.models.PersonRequest;
 import com.webapi.demo.repositories.interfaces.PersonRepository;
 import com.webapi.demo.services.interfaces.PersonService;
 import com.webapi.demo.services.interfaces.UtilityService;
@@ -26,12 +27,14 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public Person create(Person person) {
-        return personRepo.save(person);
+    public Person create(PersonRequest request) {
+        var createdPerson = new Person(request.firstName, request.lastName, request.age);
+        return personRepo.save(createdPerson);
     }
 
     @Override
-    public Person update(Long id, Person updatedPerson) {
+    public Person update(Long id, PersonRequest request) {
+        var updatedPerson = new Person(request.firstName, request.lastName, request.age);
         var existingOpt = personRepo.findById(id);
         if (existingOpt.isEmpty()) {
             return null;
@@ -52,6 +55,9 @@ public class PersonServiceImpl implements PersonService {
         }
         personRepo.deleteById(id);
         return true;
+    }
 
+    private Person MapRequest(PersonRequest personRequest) {
+        return new Person(personRequest.firstName, personRequest.lastName, personRequest.age);
     }
 }
